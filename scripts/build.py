@@ -28,6 +28,7 @@ PUBLIC_DIR = ROOT / "public"
 LANGUAGES = ("pt", "en")
 DEFAULT_LANG = "pt"
 HREFLANG = {"pt": "pt-BR", "en": "en"}
+LANGUAGE_NAMES = {"pt": "Português", "en": "English"}
 
 Content = dict[str, Any]
 
@@ -45,9 +46,14 @@ def e(value: object) -> str:
     return escape(str(value), quote=True)
 
 
-def join(parts: list[str], indent: int = 0) -> str:
-    pad = " " * indent
-    return "\n".join(pad + part for part in parts)
+def indent_lines(lines: list[str], spaces: int) -> str:
+    pad = " " * spaces
+    return "\n".join(pad + line for line in lines)
+
+
+def list_items(items: list[str], css_class: str = "") -> str:
+    attr = f' class="{css_class}"' if css_class else ""
+    return "".join(f"<li{attr}>{e(item)}</li>" for item in items)
 
 
 # ---------------------------------------------------------------- partials
@@ -59,76 +65,59 @@ def hreflang_links(site_url: str) -> str:
         for lang in LANGUAGES
     ]
     links.append(f'<link rel="alternate" hreflang="x-default" href="{site_url}/">')
-    return join(links, indent=2)
+    return indent_lines(links, 2)
 
 
 def language_switch(current: str, content: Content) -> str:
     other = next(lang for lang in LANGUAGES if lang != current)
-    labels = "<i>|</i>".join(
-        f'<span class="on">{lang.upper()}</span>' if lang == current else f"<span>{lang.upper()}</span>"
+    labels = "".join(
+        f'<span aria-current="true">{lang.upper()}</span>' if lang == current else f"<span>{lang.upper()}</span>"
         for lang in LANGUAGES
     )
     switch_to = e(content["meta"]["switchTo"])
     return (
-        f'        <a class="lang" href="../{other}/" hreflang="{HREFLANG[other]}" lang="{HREFLANG[other]}" '
+        f'        <a class="lang" href="../{other}/" hreflang="{HREFLANG[other]}" '
         f'data-lang="{other}" title="{switch_to}" aria-label="{switch_to}">{labels}</a>'
     )
 
 
-def nav_links(content: Content, indent: int) -> str:
-    return join([f'<a href="#{e(i["id"])}">{e(i["label"])}</a>' for i in content["nav"]["items"]], indent)
+def nav_links(content: Content, spaces: int) -> str:
+    return indent_lines([f'<a href="#{e(i["id"])}">{e(i["label"])}</a>' for i in content["nav"]["items"]], spaces)
 
 
-def chips(items: list[str], css_class: str = "") -> str:
-    attr = f' class="{css_class}"' if css_class else ""
-    return "".join(f"<li{attr}>{e(item)}</li>" for item in items)
-
-
-def system_cards(section: Content) -> str:
-    cards = []
-    for item in section["items"]:
-        solution = "".join(f"<li>{e(step)}</li>" for step in item["solution"])
-        cards.append(
-            '<article class="card reveal">'
-            f'<div class="card-top"><span class="num">{e(item["number"])}</span><span class="tag">{e(item["tag"])}</span></div>'
-            f'<h3>{e(item["name"])}</h3>'
-            f'<p class="card-sub">{e(item["summary"])}</p>'
-            f'<div class="pair"><span class="label">{e(section["problemLabel"])}</span><p>{e(item["problem"])}</p></div>'
-            f'<div class="pair"><span class="label">{e(section["solutionLabel"])}</span><ul class="ticks">{solution}</ul></div>'
-            f'<p class="status"><i aria-hidden="true"></i>{e(item["status"])}</p>'
-            f'<ul class="mini-chips" aria-label="Stack">{chips(item["stack"])}</ul>'
-            "</article>"
-        )
-    return "".join(cards)
-
-
-def upcoming_cards(section: Content) -> str:
+def case_studies(section: Content) -> str:
     return "".join(
-        '<article class="soon-card reveal">'
-        f'<span class="badge">{e(section["badge"])}</span>'
-        f'<h4>{e(item["name"])}</h4>'
-        f'<p>{e(item["description"])}</p>'
-        f'<p class="soon-stack">{e(item["stack"])}</p>'
+        '<article class="case">'
+        '<div class="case-summary">'
+        f'<p class="case-context">{e(item["context"])}</p>'
+        f'<h3>{e(item["name"])}</h3>'
+        f'<p class="case-outcome">{e(item["outcome"])}</p>'
+        "</div>"
+        '<div class="case-detail">'
+        f'<h4>{e(section["howLabel"])}</h4>'
+        f'<ul class="case-steps">{list_items(item["how"])}</ul>'
+        f'<h4>{e(section["stackLabel"])}</h4>'
+        f'<ul class="tags">{list_items(item["stack"])}</ul>'
+        "</div>"
         "</article>"
+        for item in section["items"]
+    )
+
+
+def services(section: Content) -> str:
+    return "".join(
+        f'<div class="service"><h3>{e(item["name"])}</h3><p>{e(item["text"])}</p></div>'
         for item in section["items"]
     )
 
 
 def stack_groups(section: Content) -> str:
     return "".join(
-        '<div class="stack-group reveal">'
+        '<div class="stack-row">'
         f'<h3>{e(group["name"])}</h3>'
-        f'<ul class="stack-chips">{chips(group["inUse"])}{chips(group["upcoming"], "soon")}</ul>'
+        f'<ul class="tags">{list_items(group["inUse"])}{list_items(group["upcoming"], "is-upcoming")}</ul>'
         "</div>"
         for group in section["groups"]
-    )
-
-
-def process_steps(section: Content) -> str:
-    return "".join(
-        f'<li class="step reveal"><span class="step-n">{index:02d}</span>'
-        f'<h3>{e(step["title"])}</h3><p>{e(step["text"])}</p></li>'
-        for index, step in enumerate(section["steps"], start=1)
     )
 
 
@@ -151,7 +140,7 @@ def json_ld(site: Content) -> str:
 
 
 def render_page(lang: str, content: Content, site: Content) -> str:
-    meta = content["meta"]
+    meta, hero = content["meta"], content["hero"]
     site_url = site["url"].rstrip("/")
     mailto = f'mailto:{site["email"]}?subject={quote(content["contact"]["emailSubject"])}'
 
@@ -167,7 +156,7 @@ def render_page(lang: str, content: Content, site: Content) -> str:
         "json_ld": json_ld(site),
         "skip_label": e(content["nav"]["skip"]),
         "menu_label": e(content["nav"]["menu"]),
-        "nav_links": nav_links(content, indent=8),
+        "nav_links": nav_links(content, spaces=8),
         "nav_cta": e(content["nav"]["cta"]),
         "language_switch": language_switch(lang, content),
         "mailto": e(mailto),
@@ -175,69 +164,46 @@ def render_page(lang: str, content: Content, site: Content) -> str:
         "linkedin_url": e(site["linkedin"]),
         "github_url": e(site["github"]),
         "year": site["founded"],
-        # Trusted markup: these two fields contain an <em> by design.
-        "hero_title": content["hero"]["titleHtml"],
-        "contact_title": content["contact"]["titleHtml"],
-        "hero_eyebrow": e(content["hero"]["eyebrow"]),
-        "hero_lead": e(content["hero"]["lead"]),
-        "hero_primary_cta": e(content["hero"]["primaryCta"]),
-        "hero_secondary_cta": e(content["hero"]["secondaryCta"]),
-        "hero_focus_label": e(content["hero"]["focusLabel"]),
-        "hero_focus": chips(content["hero"]["focus"]),
-        "facts": "".join(
-            f'<div class="fact"><strong>{e(f["value"])}</strong><span>{e(f["label"])}</span></div>'
-            for f in content["facts"]
-        ),
-        "systems_eyebrow": e(content["systems"]["eyebrow"]),
-        "systems_title": e(content["systems"]["title"]),
-        "systems_lead": e(content["systems"]["lead"]),
-        "systems": system_cards(content["systems"]),
-        "upcoming_eyebrow": e(content["upcoming"]["eyebrow"]),
-        "upcoming_title": e(content["upcoming"]["title"]),
-        "upcoming": upcoming_cards(content["upcoming"]),
-        "stack_eyebrow": e(content["stack"]["eyebrow"]),
+        "hero_kicker": e(hero["kicker"]),
+        "hero_title": e(hero["title"]),
+        "hero_lead": e(hero["lead"]),
+        "hero_primary_cta": e(hero["primaryCta"]),
+        "hero_secondary_cta": e(hero["secondaryCta"]),
+        "hero_proof": list_items(hero["proof"]),
+        "cases_title": e(content["cases"]["title"]),
+        "cases": case_studies(content["cases"]),
+        "services_title": e(content["services"]["title"]),
+        "services": services(content["services"]),
         "stack_title": e(content["stack"]["title"]),
+        "stack_lead": e(content["stack"]["lead"]),
         "stack_legend_in_use": e(content["stack"]["legendInUse"]),
         "stack_legend_upcoming": e(content["stack"]["legendUpcoming"]),
         "stack_groups": stack_groups(content["stack"]),
-        "process_eyebrow": e(content["process"]["eyebrow"]),
-        "process_title": e(content["process"]["title"]),
-        "process_steps": process_steps(content["process"]),
-        "capabilities_eyebrow": e(content["capabilities"]["eyebrow"]),
-        "capabilities_title": e(content["capabilities"]["title"]),
-        "capabilities": chips(content["capabilities"]["items"]),
-        "about_eyebrow": e(content["about"]["eyebrow"]),
         "about_title": e(content["about"]["title"]),
         "about_paragraphs": "".join(f"<p>{e(p)}</p>" for p in content["about"]["paragraphs"]),
         "about_facts": "".join(
             f'<div><dt>{e(f["label"])}</dt><dd>{e(f["value"])}</dd></div>' for f in content["about"]["facts"]
         ),
-        "faq_eyebrow": e(content["faq"]["eyebrow"]),
-        "faq_title": e(content["faq"]["title"]),
-        "faq_items": "".join(
-            f'<details><summary>{e(i["question"])}</summary><p>{e(i["answer"])}</p></details>'
-            for i in content["faq"]["items"]
-        ),
+        "contact_title": e(content["contact"]["title"]),
         "contact_lead": e(content["contact"]["lead"]),
         "contact_button": e(content["contact"]["button"]),
         "footer_tagline": e(content["footer"]["tagline"]),
         "footer_nav_title": e(content["footer"]["navTitle"]),
         "footer_contact_title": e(content["footer"]["contactTitle"]),
         "footer_rights": e(content["footer"]["rights"]),
-        "footer_links": nav_links(content, indent=8),
+        "footer_links": nav_links(content, spaces=8),
     }
     return load_template("page.html").substitute(values)
 
 
 def render_redirect(site: Content) -> str:
     site_url = site["url"].rstrip("/")
-    names = {"pt": "Português", "en": "English"}
     return load_template("redirect.html").substitute(
         site_name=e(site["name"]),
         default_lang=DEFAULT_LANG,
         supported_langs=json.dumps(list(LANGUAGES)),
         hreflang_links=hreflang_links(site_url),
-        language_links=" · ".join(f'<a href="{lang}/">{names[lang]}</a>' for lang in LANGUAGES),
+        language_links=" ".join(f'<a href="{lang}/">{LANGUAGE_NAMES[lang]}</a>' for lang in LANGUAGES),
     )
 
 
