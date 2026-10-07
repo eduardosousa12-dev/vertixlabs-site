@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${site_name}</title>
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url=${default_lang}/">
+${hreflang_links}
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <style>
+    html { background: #0a0c0b; color: #f3f6f4; font-family: system-ui, sans-serif; }
+    body { display: grid; place-items: center; min-height: 100vh; margin: 0; }
+    a { color: #0ee473; }
+  </style>
+  <script>
+    (function () {
+      var supported = ${supported_langs};
+      var lang = null;
+      try { lang = localStorage.getItem("vx-lang"); } catch (e) { /* storage unavailable */ }
+      if (supported.indexOf(lang) === -1) {
+        var browser = (navigator.language || "").toLowerCase();
+        lang = browser.indexOf("en") === 0 ? "en" : "${default_lang}";
+      }
+      location.replace(lang + "/" + location.hash);
+    })();
+  </script>
+</head>
+<body>
+  <p>${language_links}</p>
+</body>
+</html>

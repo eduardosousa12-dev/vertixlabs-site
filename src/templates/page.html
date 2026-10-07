@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="${lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title}</title>
+  <meta name="description" content="${description}">
+  <meta name="theme-color" content="#0a0c0b">
+  <link rel="canonical" href="${canonical_url}">
+${hreflang_links}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${site_name}">
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${description}">
+  <meta property="og:url" content="${canonical_url}">
+  <meta property="og:locale" content="${locale}">
+  <meta property="og:image" content="${site_url}/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script>document.documentElement.classList.add("js");</script>
+  <script type="application/ld+json">${json_ld}</script>
+</head>
+<body>
+  <a class="skip" href="#main">${skip_label}</a>
+
+  <header class="site-header" id="top">
+    <div class="wrap bar">
+      <a class="brand" href="#top" aria-label="${site_name}">
+        <img src="../assets/img/mark.png" alt="" width="30" height="30">
+        <span class="brand-text">VERTIX<b>LABS</b></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="${menu_label}">
+${nav_links}
+      </nav>
+      <div class="bar-right">
+${language_switch}
+        <a class="btn btn-sm" href="#contato">${nav_cta}</a>
+        <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="${menu_label}"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"><img src="../assets/img/mark.png" alt=""></div>
+      <div class="wrap hero-inner">
+        <p class="pill"><i aria-hidden="true"></i>${hero_eyebrow}</p>
+        <h1>${hero_title}</h1>
+        <p class="lead">${hero_lead}</p>
+        <div class="actions">
+          <a class="btn" href="#produtos">${hero_primary_cta} <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="${mailto}">${hero_secondary_cta}</a>
+        </div>
+        <div class="chips-row"><span>${hero_focus_label}</span><ul>${hero_focus}</ul></div>
+      </div>
+    </section>
+
+    <section class="facts" aria-label="${site_name}">
+      <div class="wrap facts-grid">${facts}</div>
+    </section>
+
+    <section class="section" id="produtos">
+      <div class="wrap">
+        <div class="head reveal"><p class="eyebrow">${systems_eyebrow}</p><h2>${systems_title}</h2><p class="muted">${systems_lead}</p></div>
+        <div class="cards">${systems}</div>
+        <div class="soon-wrap">
+          <div class="soon-head reveal"><p class="eyebrow">${upcoming_eyebrow}</p><h3>${upcoming_title}</h3></div>
+          <div class="soon-grid">${upcoming}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="stack">
+      <div class="wrap">
+        <div class="head reveal">
+          <p class="eyebrow">${stack_eyebrow}</p>
+          <h2>${stack_title}</h2>
+          <p class="legend"><span class="lg-item"><span class="lg used"></span>${stack_legend_in_use}</span><span class="lg-item"><span class="lg soon"></span>${stack_legend_upcoming}</span></p>
+        </div>
+        <div class="stack-grid">${stack_groups}</div>
+      </div>
+    </section>
+
+    <section class="section" id="como">
+      <div class="wrap">
+        <div class="head reveal"><p class="eyebrow">${process_eyebrow}</p><h2>${process_title}</h2></div>
+        <ol class="steps">${process_steps}</ol>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <div class="head reveal"><p class="eyebrow">${capabilities_eyebrow}</p><h2>${capabilities_title}</h2></div>
+        <ul class="topics reveal">${capabilities}</ul>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="wrap about">
+        <div class="reveal">
+          <p class="eyebrow">${about_eyebrow}</p>
+          <h2>${about_title}</h2>
+          <div class="about-text">${about_paragraphs}</div>
+        </div>
+        <aside class="founder reveal">
+          <img src="../assets/img/mark.png" alt="" width="44" height="44">
+          <strong>${site_name}</strong>
+          <dl class="info">${about_facts}</dl>
+          <div class="founder-links">
+            <a href="${linkedin_url}" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="${github_url}" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section alt" id="faq">
+      <div class="wrap narrow">
+        <div class="head reveal"><p class="eyebrow">${faq_eyebrow}</p><h2>${faq_title}</h2></div>
+        <div class="faq reveal">${faq_items}</div>
+      </div>
+    </section>
+
+    <section class="section cta-section" id="contato">
+      <div class="wrap">
+        <div class="cta reveal">
+          <h2>${contact_title}</h2>
+          <p>${contact_lead}</p>
+          <a class="btn" href="${mailto}">${contact_button} <span aria-hidden="true">→</span></a>
+          <p class="cta-mail">${email}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><img src="../assets/img/mark.png" alt="" width="28" height="28"><span class="brand-text">VERTIX<b>LABS</b></span></a>
+        <p>${footer_tagline}</p>
+      </div>
+      <div>
+        <h2 class="foot-title">${footer_nav_title}</h2>
+${footer_links}
+      </div>
+      <div>
+        <h2 class="foot-title">${footer_contact_title}</h2>
+        <a href="mailto:${email}">${email}</a>
+        <a href="${linkedin_url}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="${github_url}" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="foot-bottom">
+        <span>© ${year} ${site_name}. ${footer_rights}</span>
+${language_switch}
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
