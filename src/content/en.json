@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "lang": "en",
+    "locale": "en_US",
+    "title": "Vertix Labs · AI, automation and custom software",
+    "description": "Technology studio building artificial intelligence, automation and custom software for sales, support and operations.",
+    "switchTo": "Mudar para português"
+  },
+  "nav": {
+    "items": [
+      {
+        "id": "produtos",
+        "label": "Systems"
+      },
+      {
+        "id": "stack",
+        "label": "Stack"
+      },
+      {
+        "id": "como",
+        "label": "How it works"
+      },
+      {
+        "id": "sobre",
+        "label": "About"
+      },
+      {
+        "id": "faq",
+        "label": "FAQ"
+      }
+    ],
+    "cta": "Contact",
+    "menu": "Menu",
+    "skip": "Skip to content"
+  },
+  "hero": {
+    "eyebrow": "Technology studio · AI, automation and software",
+    "titleHtml": "AI and software that <em>work</em> for your business.",
+    "lead": "Vertix Labs builds AI agents, automations and custom software that turn manual sales, support and operations processes into systems that run on their own.",
+    "primaryCta": "See the systems",
+    "secondaryCta": "Send an email",
+    "focusLabel": "Focus",
+    "focus": [
+      "AI agents",
+      "Process automation",
+      "Custom software",
+      "Integrations",
+      "AI evaluation"
+    ]
+  },
+  "facts": [
+    {
+      "value": "3",
+      "label": "AI systems built"
+    },
+    {
+      "value": "3",
+      "label": "new products in progress"
+    },
+    {
+      "value": "Remote",
+      "label": "100% remote projects"
+    }
+  ],
+  "systems": {
+    "eyebrow": "Systems built",
+    "title": "Real problems, solved with AI.",
+    "lead": "Three documented systems, from problem to solution.",
+    "problemLabel": "Problem",
+    "solutionLabel": "Solution",
+    "items": [
+      {
+        "number": "01",
+        "tag": "Sales Ops · WhatsApp",
+        "name": "X9 Agent",
+        "summary": "Customer service supervisor for WhatsApp",
+        "problem": "Managers can't tell whether clients in dozens of WhatsApp groups are being served or ignored.",
+        "solution": [
+          "Monitors the groups Monday to Friday and checks that real service happened.",
+          "Runs twice a day (5 pm and 6 pm) and flags who hasn't moved.",
+          "Congratulates managers with 100% service coverage (gamification).",
+          "Logs everything to a database and sends a weekly report."
+        ],
+        "status": "V1 working · V2 in development",
+        "stack": [
+          "n8n",
+          "Event-driven integration",
+          "WhatsApp",
+          "Database"
+        ]
+      },
+      {
+        "number": "02",
+        "tag": "LLM evaluation",
+        "name": "QA Agent",
+        "summary": "A meta-agent that tests other agents",
+        "problem": "Every prompt change needs a manual testing cycle to make sure nothing broke.",
+        "solution": [
+          "A generator agent creates a battery of test scenarios.",
+          "A simulator agent talks to the agent under test like a real customer.",
+          "A judge agent reviews everything, scores it from 0 to 100 and flags error patterns."
+        ],
+        "status": "Completed",
+        "stack": [
+          "Multi-agent orchestration",
+          "LLM-as-a-judge",
+          "LangChain",
+          "JavaScript"
+        ]
+      },
+      {
+        "number": "03",
+        "tag": "AI for marketing",
+        "name": "VSL Optimizer",
+        "summary": "AI analysis of sales briefs",
+        "problem": "VSL (video sales letter) briefs are hard to evaluate and often lead to underperforming campaigns.",
+        "solution": [
+          "A pipeline of 6 specialized LLMs, each following a copywriting framework.",
+          "A 0 to 10 score for each block: lead, story and offer.",
+          "A diagnosis of weak points and a new, ready-to-use version of the brief."
+        ],
+        "status": "Completed",
+        "stack": [
+          "LLM pipeline",
+          "Prompt chaining",
+          "n8n",
+          "Lovable front end"
+        ]
+      }
+    ]
+  },
+  "upcoming": {
+    "eyebrow": "In progress",
+    "title": "Coming next",
+    "badge": "Coming soon",
+    "items": [
+      {
+        "name": "Online store",
+        "description": "A complete e-commerce with card payments, login, an orders dashboard and confirmation emails.",
+        "stack": "Next.js · TypeScript · Prisma · PostgreSQL · Stripe · Clerk"
+      },
+      {
+        "name": "Voice agent",
+        "description": "A voice receptionist that books, reschedules and cancels appointments, and never confirms a taken slot.",
+        "stack": "Python · FastAPI · LiveKit · Whisper · tool calling · Docker"
+      },
+      {
+        "name": "Automated newsletter",
+        "description": "Collects news every day, summarizes it with AI and emails it, with confirmation and one-click unsubscribe.",
+        "stack": "n8n · PostgreSQL · LLM · Resend"
+      }
+    ]
+  },
+  "stack": {
+    "eyebrow": "Stack",
+    "title": "The Vertix Labs stack.",
+    "legendInUse": "In use in the systems built",
+    "legendUpcoming": "In the projects in progress",
+    "groups": [
+      {
+        "name": "Artificial intelligence",
+        "inUse": [
+          "LLMs",
+          "LangChain",
+          "Multi-agent orchestration",
+          "Evals (LLM-as-a-judge)",
+          "Prompt engineering"
+        ],
+        "upcoming": [
+          "OpenAI API",
+          "Claude API",
+          "Tool calling",
+          "RAG",
+          "Vector databases",
+          "LiveKit",
+          "Whisper"
+        ]
+      },
+      {
+        "name": "Software and back end",
+        "inUse": [
+          "JavaScript"
+        ],
+        "upcoming": [
+          "TypeScript",
+          "React",
+          "Next.js",
+          "Node.js",
+          "Python",
+          "FastAPI",
+          "Prisma"
+        ]
+      },
+      {
+        "name": "Data and infrastructure",
+        "inUse": [
+          "PostgreSQL (Supabase)",
+          "Firebase"
+        ],
+        "upcoming": [
+          "Docker",
+          "Vercel"
+        ]
+      },
+      {
+        "name": "Integrations and automation",
+        "inUse": [
+          "n8n",
+          "REST APIs",
+          "Webhooks",
+          "WhatsApp",
+          "CRMs"
+        ],
+        "upcoming": [
+          "Stripe",
+          "Clerk",
+          "Resend"
+        ]
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "How it works",
+    "title": "From problem to a running system.",
+    "steps": [
+      {
+        "title": "Understand the problem",
+        "text": "Before any tool, the current process is mapped: where there is rework, delay or a lack of visibility."
+      },
+      {
+        "title": "Design the solution",
+        "text": "Flow, data and integrations are designed end to end, with clear rules and points for human review."
+      },
+      {
+        "title": "Build, measure, evolve",
+        "text": "The system goes live with metrics and reports. Based on the numbers, it evolves in versions."
+      }
+    ]
+  },
+  "capabilities": {
+    "eyebrow": "What's possible",
+    "title": "What Vertix Labs works on",
+    "items": [
+      "AI agents for customer service",
+      "Lead qualification",
+      "Process automation",
+      "System integrations",
+      "CRM and sales funnels",
+      "AI testing and evaluation",
+      "Dashboards and reports",
+      "Custom web applications"
+    ]
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "Technology that solves business problems.",
+    "paragraphs": [
+      "Vertix Labs is a technology studio that builds artificial intelligence, automation and custom software solutions for businesses.",
+      "The challenge: manual processes, disconnected systems and a lack of visibility cost time and opportunities in sales, support and operations.",
+      "The approach: understand the process, design the flow and build systems that run on their own, with metrics to improve with every version."
+    ],
+    "facts": [
+      {
+        "label": "Founded",
+        "value": "2026"
+      },
+      {
+        "label": "Based in",
+        "value": "Uberlândia, Brazil · remote"
+      },
+      {
+        "label": "Founder",
+        "value": "Eduardo Sousa"
+      },
+      {
+        "label": "Languages",
+        "value": "Portuguese and English"
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "question": "What is Vertix Labs?",
+        "answer": "A technology studio that builds artificial intelligence, automation and custom software for sales, support and operations."
+      },
+      {
+        "question": "Which technologies are used?",
+        "answer": "In the current systems: LLMs, LangChain, multi-agent orchestration, PostgreSQL and n8n. In the projects in progress: TypeScript, Next.js, Python, FastAPI, Prisma, Docker and more. The Stack section has the full list."
+      },
+      {
+        "question": "Can I see the code or documentation?",
+        "answer": "Yes. The X9 and QA Agent projects have a repository and documentation on GitHub."
+      },
+      {
+        "question": "How do I get in touch?",
+        "answer": "By email. Describe the problem in a few lines and the conversation starts from there."
+      }
+    ]
+  },
+  "contact": {
+    "titleHtml": "Got a process that's still <em>manual</em>?",
+    "lead": "Describe the problem in a few lines and see if it can be automated.",
+    "button": "Send an email",
+    "emailSubject": "Contact via the Vertix Labs website"
+  },
+  "footer": {
+    "tagline": "AI, automation and custom software.",
+    "navTitle": "Navigation",
+    "contactTitle": "Contact",
+    "rights": "All rights reserved."
+  }
+}
